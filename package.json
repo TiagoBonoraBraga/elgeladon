@@ -1,0 +1,27 @@
+{
+  "name": "elgeladon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ogait-ashtar/elgeladon.git"
+  },
+  "author": "Ogait Ashtar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ogait-ashtar/elgeladon/issues"
+  },
+  "homepage": "https://github.com/ogait-ashtar/elgeladon#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
