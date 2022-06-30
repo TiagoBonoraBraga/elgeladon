@@ -13,11 +13,6 @@ const findAllPaletasController = async (req, res) => {
 
 const findByIdPaletaController = async (req, res) => {
   const idParam = req.params.id; //vai pegar a requisiçãodo front
-
-  if (!mongoose.Types.ObjectId.isValid(idParam)) {//vai ver c é umid do mon
-    return res.status(400).send({ message: 'Id Inválido!' });
-  }
-
   const chosenPaleta = await paletasService.findByIdPaletaService(idParam); //
 
   if (!chosenPaleta) {
@@ -29,46 +24,13 @@ const findByIdPaletaController = async (req, res) => {
 
 const createPaletaController = async (req, res) => {
   const paleta = req.body;
-
-  if (
-    //c vier campo vazio
-    !paleta ||
-    !paleta.sabor ||
-    !paleta.descricao ||
-    !paleta.foto ||
-    !paleta.preco
-  ) {
-    return res
-      .status(400)
-      .send({ message: 'Envie todos os campos da paleta!' });
-  }
-
   const newPaleta = await paletasService.createPaletaService(paleta);
   res.status(201).send(newPaleta);
 };
 
 const updatePaletaController = async (req, res) => {
   const idParam = req.params.id;
-
-  if (!mongoose.Types.ObjectId.isValid(idParam)) {
-    return res.status(400).send({ message: 'Id Inválido!' });
-  }
-
   const editPaleta = req.body;
-
-  if (
-    //c vier campo vazio
-    !editPaleta ||
-    !editPaleta.sabor ||
-    !editPaleta.descricao ||
-    !editPaleta.foto ||
-    !editPaleta.preco
-  ) {
-    return res
-      .status(400)
-      .send({ message: 'Envie todos os campos da paleta!' });
-  }
-
   const updatedPaleta = await paletasService.updatePaletaService(
     idParam,
     editPaleta,
@@ -78,11 +40,6 @@ const updatePaletaController = async (req, res) => {
 
 const deletePaletaController = async (req, res) => {
   const idParam = req.params.id;
-
-  if (!mongoose.Types.ObjectId.isValid(idParam)) {
-    return res.status(400).send({ message: 'Id Inválido!' });
-  }
-
   await paletasService.deletePaletaService(idParam);
   res.send({ message: 'Paleta deletada com sucesso!' });
 };
