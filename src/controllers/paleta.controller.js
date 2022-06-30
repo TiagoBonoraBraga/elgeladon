@@ -1,6 +1,5 @@
-
-const mongoose = require('mongoose');
-const paletasService = require('../services/paleta.service');
+const mongoose = require('mongoose'); //para validar c oid é do mongoose no if baixo
+const paletasService = require('../services/paleta.service'); //puxa o service e coloca na variavel
 
 const findAllPaletasController = async (req, res) => {
   const paletas = await paletasService.findAllPaletasService(); //buscando as paletas no service
@@ -15,7 +14,7 @@ const findAllPaletasController = async (req, res) => {
 const findByIdPaletaController = async (req, res) => {
   const idParam = req.params.id; //vai pegar a requisiçãodo front
 
-  if (!mongoose.Types.ObjectId.isValid(idParam)) {
+  if (!mongoose.Types.ObjectId.isValid(idParam)) {//vai ver c é umid do mon
     return res.status(400).send({ message: 'Id Inválido!' });
   }
 
@@ -70,7 +69,10 @@ const updatePaletaController = async (req, res) => {
       .send({ message: 'Envie todos os campos da paleta!' });
   }
 
-  const updatedPaleta = await paletasService.updatePaletaService(idParam, paletaEdit);
+  const updatedPaleta = await paletasService.updatePaletaService(
+    idParam,
+    paletaEdit,
+  );
   res.send(updatedPaleta);
 };
 
