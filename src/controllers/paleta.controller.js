@@ -2,13 +2,13 @@ const mongoose = require('mongoose'); //para validar c oid é do mongoose no if 
 const paletasService = require('../services/paleta.service'); //puxa o service e coloca na variavel
 
 const findAllPaletasController = async (req, res) => {
-  const paletas = await paletasService.findAllPaletasService(); //buscando as paletas no service
+  const allPaletas = await paletasService.findAllPaletasService(); //buscando as paletas no service
 
-  if (paletas.length == 0) {
+  if (allPaletas.length == 0) {
     return res.status(404).send({ message: 'Não existe paleta cadastrada!' });
   }
 
-  res.send(paletas);
+  res.send(allPaletas);
 };
 
 const findByIdPaletaController = async (req, res) => {
@@ -18,13 +18,13 @@ const findByIdPaletaController = async (req, res) => {
     return res.status(400).send({ message: 'Id Inválido!' });
   }
 
-  const paletaEscolhida = await paletasService.findByIdPaletaService(idParam); //
+  const chosenPaleta = await paletasService.findByIdPaletaService(idParam); //
 
-  if (!paletaEscolhida) {
+  if (!chosenPaleta) {
     return res.status(404).send({ message: 'Paleta não encontrada!' });
   }
 
-  res.send(paletaEscolhida);
+  res.send(chosenPaleta);
 };
 
 const createPaletaController = async (req, res) => {
@@ -54,15 +54,15 @@ const updatePaletaController = async (req, res) => {
     return res.status(400).send({ message: 'Id Inválido!' });
   }
 
-  const paletaEdit = req.body;
+  const editPaleta = req.body;
 
   if (
     //c vier campo vazio
-    !paletaEdit ||
-    !paletaEdit.sabor ||
-    !paletaEdit.descricao ||
-    !paletaEdit.foto ||
-    !paletaEdit.preco
+    !editPaleta ||
+    !editPaleta.sabor ||
+    !editPaleta.descricao ||
+    !editPaleta.foto ||
+    !editPaleta.preco
   ) {
     return res
       .status(400)
@@ -71,7 +71,7 @@ const updatePaletaController = async (req, res) => {
 
   const updatedPaleta = await paletasService.updatePaletaService(
     idParam,
-    paletaEdit,
+    editPaleta,
   );
   res.send(updatedPaleta);
 };
