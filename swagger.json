@@ -1,0 +1,216 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API El Geladon",
+    "description": "API para CRUD de paletas mexicanas",
+    "termsOfService": "",
+    "contact": {
+      "email": "ogait.desenvolvedor.jr@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/paletas",
+      "description": "API de teste"
+    },
+    {
+      "url": "https://api-elgeladonpaletas.herokuapp.com/paletas",
+      "description": "API de produção"
+    }
+  ],
+  "paths": {
+    "/all-paletas": {
+      "get": {
+        "summary": "Lista de todasas paletas",
+        "description": "Rota responsavel por listar tds as paletas",
+        "tags": ["Paletas"],
+        "responses": {
+          "404": {
+            "description": "Not found"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Paletas"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/one-paleta/{id}": {
+      "get": {
+        "summary": "Busca uma paleta pelo ID",
+        "description": "Rota responsável por buscar uma paleta pelo ID",
+        "tags": ["Paletas"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id da paleta para a busca",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad request"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Paletas"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/create-paleta": {
+      "post": {
+        "summary": "Cadastrar uma paleta",
+        "description": "Rota responsavel por cadastrar paletas",
+        "tags": ["Paletas"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Paletas"
+              },
+              "examples": {
+                "Paletas": {
+                  "value": {
+                    "sabor": "Maracuja",
+                    "descricao": "Maravilhosa paleta de maracuja",
+                    "foto": "./assets/imagens/maracuja.png",
+                    "preco": 4
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad request"
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Paletas"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/update-paleta/{id}": {
+      "put": {
+        "summary": "Editar uma paleta pelo ID",
+        "description": "Rota responsavel por editar uma paleta pelo ID",
+        "tags": ["Paletas"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id da paleta para a busca",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Paletas"
+              },
+              "examples": {
+                "Paletas": {
+                  "value": {
+                    "sabor": "Limão editado",
+                    "descricao": "Maravilhosa paleta de limao editada",
+                    "foto": "./assets/imagens/limão.png",
+                    "preco": 4
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad request"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Paletas"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/delete-paleta/{id}": {
+        "delete":{
+            "summary": "Apagar uma paleta pelo ID",
+            "description": "Rota responsavel por apagar uma paleta pelo ID",
+            "tags":["Paletas"],
+            "parameters":[
+                {
+                    "name":"id",
+                    "in":"path",
+                    "description":"Id da paleta de deleção",
+                    "required":true
+                }
+            ],
+            "responses":{
+                "400":{
+                    "description":"Bad request"
+                },
+                "200":{
+                    "description":"Ok"
+                }
+            }
+        }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Paletas": {
+        "type": "object",
+        "properties": {
+          "sabor": {
+            "type": "string"
+          },
+          "descricao": {
+            "type": "string"
+          },
+          "foto": {
+            "type": "string"
+          },
+          "preco": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}
